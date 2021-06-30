@@ -1,0 +1,35 @@
+{
+  "name": "canvaseditor",
+  "version": "1.0.0",
+  "description": "simply and fast graphic editor for all mankind",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kostuk42/CanvasEditor.git"
+  },
+  "author": "Alexey Kostiuchenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kostuk42/CanvasEditor/issues"
+  },
+  "homepage": "https://github.com/kostuk42/CanvasEditor#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/preset-env": "^7.13.12",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.0",
+    "imports-loader": "^3.0.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.40.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
