@@ -1,11 +1,14 @@
 import './style.css';
-const canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
+
+
 let story = [];
 let lineStory = [];
 let isOverCanvas = false;
 let isDragging = false;
+let isRepaint = false;
 let erasing;
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 const rad = document.getElementById("rad");
 const col = document.getElementById("color");
 const clear = document.querySelector('.clear');
@@ -14,11 +17,11 @@ const saveImg = document.getElementById('save');
 const undoBtn = document.querySelector('.undo');
 const eraser = document.querySelector('.eraser');
 const invert = document.querySelector(".invert");
-const flip = document.querySelector(".flip");
+const flipBtn = document.querySelector(".flip");
 
 let radius = rad.value;
 let color = col.value;
-let imgSrc = '';
+// let imgSrc = '';
 let newImg = '';
 let isOnErase = false;
 
@@ -43,7 +46,13 @@ function canvasWhite () {
 function clearCanvas() {
    canvasWhite();
    canvasToWindowSize();
-    
+   if (isRepaint) { return }
+   story = getStory();
+   story.push('clear');
+   setStory(story);
+}
+function flip() {
+   ctx.scale(-1, 1)
 }
 
 function draw({ x, y, radius, color}  ) {
@@ -71,7 +80,11 @@ const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         imgData.data[i+2] = 255 - imgData.data[i+2];
         imgData.data[i+3] = 255;
     }
-    ctx.putImageData(imgData, 0, 0);
+   ctx.putImageData(imgData, 0, 0);
+   if(isRepaint){return}
+   story = getStory();
+   story.push('invert');
+   setStory(story);
 }
 
 function loadImgFromHDD () {
@@ -79,10 +92,12 @@ function loadImgFromHDD () {
    newImg = document.createElement('img');
    newImg.src = window.URL.createObjectURL(file);
    newImg.onload = function () {
-      console.log(this.naturalWidth, this.naturalHeight);
-      canvas.height = this.naturalHeight;
-      canvas.width = this.naturalWidth;
+      canvasToWindowSize();
       ctx.drawImage(newImg, 0, 0);
+      if(isRepaint){return}
+      story = getStory();
+      story.push('newImg');
+      setStory(story);
       
       // newImg = null;
    };
@@ -101,28 +116,39 @@ function saveToLineStory(point) {
 }
 
 function undo() {
-   canvasWhite();
-   if (newImg) {
-      ctx.drawImage(newImg, 0, 0); 
-   };
-   console.log('newImg' + newImg)
+   
    story = getStory();
+   console.log(story);
    story.pop();
    setStory(story);
    if (story.length === 0) {
       undoBtn.disabled = true;
       return
    }
-   
+   isRepaint = true;
+   clearCanvas();
    for (let i = 0; i < story.length; i++) {
-      const lineArr = story[i];
-      lineArr.forEach(
-         point => {
-            draw(point);
-         }
-      )
-      ctx.beginPath();
+      const command = story[i];
+      
+      switch (command) {
+         case 'clear':
+            clearCanvas();
+            break;
+         case 'newImg':
+            ctx.drawImage(newImg, 0, 0);
+            break;
+         case 'invert':
+            colorInvert();
+         case 'undefined':
+            console.log('alarm');
+            break;
+         default:
+            command.forEach(point => draw(point));
+            ctx.beginPath();
+            break;
+      }
    }
+   isRepaint = false;
 }
 function getStory() {
    return JSON.parse(localStorage.getItem('story'))||[]
@@ -133,7 +159,7 @@ function setStory (story) {
 function removeStory() {
    localStorage.remove('story');
 }
-
+flipBtn.onclick = flip;
 undoBtn.onclick = undo;
 loadImg.oninput = loadImgFromHDD;
 clear.onclick = clearCanvas;
@@ -184,7 +210,7 @@ const disengage = function (e) {
    if (e.which === 3) {
       erasing = false;
       color = col.value;
-      console.log('disengage')
+      
    }
    isDragging = false;
    ctx.beginPath();
@@ -194,13 +220,14 @@ const disengage = function (e) {
    setStory(story);
    lineStory = story = [];
    undoBtn.disabled = false;
-   console.log(story);
+   
 
 }
 
 //lets go!
-clearCanvas();
+
 localStorage.removeItem('story');
+clearCanvas();
 canvas.addEventListener("mousedown", engage);
 canvas.addEventListener("mousedown", drawPoint);
 canvas.addEventListener("mousemove", drawPoint);
