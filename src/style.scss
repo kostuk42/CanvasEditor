@@ -1,0 +1,111 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+:visited {
+	color: inherit;	
+}
+
+a, a:visited {
+	text-decoration: none;
+	display: block;	
+  color: inherit;
+}
+
+
+.button {
+   cursor: pointer;
+}
+body {
+  color: black;
+  font-size: 1rem;
+ 
+}
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   cursor: pointer;
+   font-weight: 800;
+   background-color: yellow;
+   border-radius: 4px;
+   border: none;
+   padding: 5px;
+   margin: 5px;
+   line-height: 1.1;
+   min-height: 32px;
+
+}
+
+b {
+   color: yellow;
+   display: flex;
+   align-items: center;
+}
+
+
+#canvas {
+   margin-top: 50px;
+   cursor: crosshair;
+   border: dashed 5px yellow;
+}
+#rad {
+   width: 35px;
+   height: 30px;
+   background: grey;
+   border: none;
+   color: yellow;
+   font-weight: inherit;
+   margin: 5px;
+   text-align: center;
+   border-radius: 4px;
+}
+#menu {
+   padding: 5px;
+   height: auto;
+   width: 100%;
+   top: 0px;
+   left: 0px;
+   background: #323232;
+   position: fixed;
+   
+}
+
+#color {
+   margin: 0 3px 0;
+   width: 25px;
+   min-height: 30px;
+   background: none;
+   padding: 0;
+   border: 1px solid black;
+   border: none;
+   vertical-align: middle;
+
+}
+
+#settings {
+ 
+  display: flex;
+  align-items: center;
+}
+
+.visually-hidden 
+{
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
+.download {
+   display: inline-block;
+}
+
