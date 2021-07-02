@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: './index.js',
-    mode: 'development',
+    mode: 'production',
     devtool: 'inline-source-map',
     devServer: {
         /** Будет запускать сервер на localhost:8080 в этой папке*/
