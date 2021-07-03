@@ -14,22 +14,22 @@
 a, a:visited {
 	text-decoration: none;
 	display: block;	
-  color: inherit;
+   color: inherit;
 }
 
-
-.button {
-   cursor: pointer;
-}
 body {
   color: black;
   font-size: 1rem;
+  font-family: 'Pangolin';
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.1em;
  
 }
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
    cursor: pointer;
    font-weight: 800;
    background-color: yellow;
@@ -38,6 +38,7 @@ body {
    padding: 5px;
    margin: 5px;
    line-height: 1.1;
+   letter-spacing: inherit;
    min-height: 32px;
 
 }
@@ -94,18 +95,9 @@ b {
   align-items: center;
 }
 
-.visually-hidden 
-{
-  position: absolute !important;
-  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0 !important;
-  border: 0 !important;
-  height: 1px !important;
-  width: 1px !important;
-  overflow: hidden;
+#profile_pic {
+   display: none;
 }
-.download {
-   display: inline-block;
-}
+
+
 

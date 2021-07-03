@@ -13,22 +13,20 @@ export default class FilesManage {
     }, 'image/jpeg', 0.95);
     }
 
-    loadImgFromHDD ( {isRepaint}, myCanvas, stack ) {
+    loadImgFromHDD ( flags, myCanvas, stack ) {
     let file = this.loadImg.files[0];
     this.newImg = document.createElement('img');
       this.newImg.src = window.URL.createObjectURL(file);
-      myCanvas.canvasWhite(this);
+     let filesManage = this;
+      myCanvas.clearCanvas(flags, stack, filesManage);
       this.updateHrefOnCanvas(myCanvas.canvas);
       this.newImg.onload = function () {
       
       myCanvas.canvas.width = this.naturalWidth;
       myCanvas.canvas.height = this.naturalHeight;
       myCanvas.ctx.drawImage(this, 0, 0);
-      if (isRepaint) { return }
-        stack.removeStory();
-        console.log('removed')
-        console.log(stack.story);
-      stack.setStory('newImg');
+      if (flags.isRepaint) { return }
+        stack.setStory('newImg');
    };   
 }    
 }

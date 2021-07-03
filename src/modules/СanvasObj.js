@@ -16,16 +16,17 @@ export default class CanvasObj {
     canvasWhite(filesManage) {
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        console.log('bleach');
+        
     }
 
-    clearCanvas({ isRepaint }, stack, filesManage) {
+    clearCanvas(flags, stack, filesManage) {
         this.canvasToWindowSize();
         this.canvasWhite(filesManage);
         
-        if (isRepaint) { return }
+        if (flags.isRepaint) { return }
         stack.setStory('clear');
         filesManage.updateHrefOnCanvas(this.canvas);
+        
     }
 
     colorInvert({ isRepaint }, stack, filesManage) {
@@ -62,6 +63,7 @@ export default class CanvasObj {
         stack.removeLastCommand();
         if (stack.story.length === 0) {
             this.undoBtn.disabled = true;
+            this.clearCanvas(flags, stack, filesManage);
             return
         }
         flags.isRepaint = true;
@@ -85,5 +87,6 @@ export default class CanvasObj {
                     break;
             }
         }
+        flags.isRepaint = false;
     }
 }
