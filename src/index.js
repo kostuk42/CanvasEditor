@@ -18,18 +18,25 @@ let flags = {
     isOnErase: false
 }
 
+let g = {
+    flags,
+    myCanvas,
+    drawing,
+    filesManage,
+    stack
+}
 
-myCanvas.undoBtn.onclick = () => myCanvas.undo(stack, flags, drawing, filesManage);
-filesManage.loadImg.oninput = () => filesManage.loadImgFromHDD(flags, myCanvas, stack);
-myCanvas.clearBtn.onclick = () => myCanvas.clearCanvas(flags, stack, filesManage);
+myCanvas.undoBtn.onclick = () => myCanvas.undo(g);
+filesManage.loadImg.oninput = () => filesManage.loadImgFromHDD(g);
+myCanvas.clearBtn.onclick = () => myCanvas.clearCanvas(g);
 drawing.rad.oninput = () => drawing.radius = drawing.rad.value;
 drawing.col.oninput = () => drawing.color = drawing.col.value;
-myCanvas.eraserBtn.onclick = () => myCanvas.eraser(flags, drawing);
-myCanvas.invert.onclick = () => myCanvas.colorInvert(flags, stack, filesManage);
+myCanvas.eraserBtn.onclick = () => myCanvas.eraser(g);
+myCanvas.invert.onclick = () => myCanvas.colorInvert(g);
 myCanvas.canvas.onmouseover = () => flags.isOverCanvas = true;
-myCanvas.canvas.addEventListener("mousedown", (e) => drawing.engage(e, flags));
-myCanvas.canvas.addEventListener("mousedown", (e) => drawing.drawPoint(e, flags, stack));
-myCanvas.canvas.onmouseup = (e) => drawing.disengage(e, flags, filesManage, stack);
-myCanvas.canvas.addEventListener("mousemove", (e) => drawing.drawPoint(e, flags, stack));
+myCanvas.canvas.addEventListener("mousedown", (e) => drawing.engage(e, g));
+myCanvas.canvas.addEventListener("mousedown", (e) => drawing.drawPoint(e, g));
+myCanvas.canvas.onmouseup = (e) => drawing.disengage(e, g);
+myCanvas.canvas.addEventListener("mousemove", (e) => drawing.drawPoint(e, g));
 stack.removeStory();
-myCanvas.clearCanvas(flags, stack, filesManage);
+myCanvas.clearCanvas(g);
