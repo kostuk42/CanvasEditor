@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css" />
+    <title>CanvasEditor</title>
+</head>
+<body>
+    <div id="menu">
+        <div id="settings">
+            <b>Radius: <input value="5" max="99" min="1" type="number" id="rad"></b>
+            <b>Color:<input id="color" type="color"></b>
+            <button class="eraser button">Eraser</button>
+            <button class="clear button">Clear</button>
+            
+                <label for="profile_pic" class="button">Download</label>
+                <input type="file" id="profile_pic" name="profile_pic" accept=".jpg, .jpeg, .png">
+            
+            <button class="button">
+                <a download="mypic.jpeg" href='#' id="save">Save</a>
+            </button>
+            <button class="undo button">Undo</button>
+            <button class="invert button">Invert</button>
+               
+        </div>
+    </div>
+    
+    <canvas id="canvas"></canvas>
+    <script src="bundle.js"></script>
+</body>
+</html>
